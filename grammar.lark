@@ -1,0 +1,80 @@
+?start : expression
+
+?expression : parenexpression
+            | seriesexpression
+            | parallelexpression
+            | impedance
+
+?parenexpression : "(" expression ")"
+
+seriesexpression : expression "+" expression
+
+parallelexpression : expression "||" expression
+
+?impedance : resistance -> resistance
+           | inductance -> inductance
+           | capacitance -> capacitance
+
+?resistance : PICOOHM 
+            | NANOOHM 
+            | MICROOHM 
+            | MILLIOHM 
+            | OHM 
+            | KILOOHM 
+            | MEGAOHM 
+            | GIGAOHM
+
+?inductance : PICOHENRY 
+            | NANOHENRY 
+            | MICROHENRY 
+            | MILLIHENRY 
+            | HENRY 
+            | KILOHENRY 
+            | MEGAHENRY 
+            | GIGAHENRY
+
+?capacitance : PICOFARAD
+             | NANOFARAD 
+             | MICROFARAD 
+             | MILLIFARAD 
+             | FARAD 
+             | KILOFARAD 
+             | MEGAFARAD 
+             | GIGAFARAD
+
+PICOOHM  : NUMBER "p"i OHMUNIT
+NANOOHM  : NUMBER "n"i OHMUNIT
+MICROOHM : NUMBER /u|μ/i OHMUNIT
+MILLIOHM : NUMBER "m" OHMUNIT
+OHM      : NUMBER OHMUNIT 
+KILOOHM  : NUMBER "k"i OHMUNIT
+MEGAOHM  : NUMBER "M" OHMUNIT
+GIGAOHM  : NUMBER "G"i OHMUNIT
+
+PICOHENRY  : NUMBER "p"i HENRYUNIT
+NANOHENRY  : NUMBER "n"i HENRYUNIT
+MICROHENRY : NUMBER /u|μ/i HENRYUNIT
+MILLIHENRY : NUMBER "m" HENRYUNIT
+HENRY      : NUMBER HENRYUNIT 
+KILOHENRY  : NUMBER "k"i HENRYUNIT
+MEGAHENRY  : NUMBER "M" HENRYUNIT
+GIGAHENRY  : NUMBER "G"i HENRYUNIT
+
+PICOFARAD  : NUMBER "p"i FARADUNIT
+NANOFARAD  : NUMBER "n"i FARADUNIT
+MICROFARAD : NUMBER /u|μ/i FARADUNIT
+MILLIFARAD : NUMBER "m" FARADUNIT
+FARAD      : NUMBER FARADUNIT
+KILOFARAD  : NUMBER "k"i FARADUNIT
+MEGAFARAD  : NUMBER "M" FARADUNIT
+GIGAFARAD  : NUMBER "G"i FARADUNIT
+
+NUMBER    : FLOAT | INT
+OHMUNIT   : /R|O|ohm|Ω/i
+HENRYUNIT : /H|L/i
+FARADUNIT : /F|C/i
+
+%import common.FLOAT
+%import common.INT
+%import common.WS_INLINE
+%ignore WS_INLINE
